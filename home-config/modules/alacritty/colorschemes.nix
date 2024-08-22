@@ -1,3 +1,6 @@
+# Taken from Dettorer's configuration
+# https://github.com/Dettorer/NixOS-infra/blob/main/colorschemes.nix
+
 {
   OneHalfDark = {
     primary = {
