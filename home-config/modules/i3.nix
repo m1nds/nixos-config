@@ -11,18 +11,15 @@
       gaps = {
         inner = 7;
         outer = 7;
-	smartBorders = "on";
+        smartBorders = "on";
       };
 
       bars = [];
     };
 
     extraConfig = ''
-	for_window [class="^."] border pixel 3
-	exec --no-startup-id systemctl --user restart polybar
-	#bar {
-	#    status_command i3status
-	# }
+      for_window [class="^."] border pixel 3
+      exec --no-startup-id systemctl --user restart polybar
     '';
   };
 }
