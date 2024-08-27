@@ -20,6 +20,7 @@
     extraConfig = ''
       for_window [class="^."] border pixel 3
       exec --no-startup-id systemctl --user restart polybar
+      bindsym $mod+Print exec flameshot gui
     '';
   };
 }
