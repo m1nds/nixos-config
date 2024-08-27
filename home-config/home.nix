@@ -35,11 +35,9 @@
     python3
     nodejs_22
     lua
-    clang-tools
-    rust-analyzer
-    rustc
-    cargo
+    rustup
     tree
+    keepassxc
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
