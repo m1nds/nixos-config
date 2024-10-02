@@ -27,6 +27,7 @@
       set autowrite
       set list
       set listchars=tab:»\ ,trail:·
+      colorscheme slate
     '';
   };
 }

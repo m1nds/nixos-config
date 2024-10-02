@@ -50,22 +50,6 @@
     LC_TIME = "fr_FR.UTF-8";
   };
 
-  # Configure keymap in X11
-  #services.xserver = {
-    #enable = true;
-    #windowManager.i3.enable = true;
-    #xkb = {
-      #layout = "fr";
-      #variant = "azerty";
-    #};
-  #};
-
-  #services.displayManager = {
-    #defaultSession = "none+i3";
-  #};
-
-  #services.picom.enable = true;
-
   security.rtkit.enable = true;
 
   services = {
@@ -86,31 +70,7 @@
       enable = true;
     };
 
-    #pipewire = {
-      #enable = true;
-      #alsa.enable = true;
-      #alsa.support32Bit = true;
-      #pulse.enable = true;
-      #wireplumber.extraConfig."10-bluez" = {
-    	#"monitor.bluez.properties" = {
-      	  #"bluez5.enable-sbc-xq" = true;
-      	  #"bluez5.enable-msbc" = true; 
-      	  #"bluez5.enable-hw-volume" = true;
-      	  #"bluez5.headset-roles" = [
-            #"hsp_hs"
-            #"hsp_ag"
-            #"hfp_hf"
-            #"hfp_ag"
-          #];
-        #};
-      #};
-    #};
   };
-
-  #services.xserver.xkb = {
-    #layout = "fr";
-    #variant = "azerty";
-  #};
 
   # Configure console keymap
   console.keyMap = "fr";
@@ -134,6 +94,7 @@
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
   users.defaultUserShell = pkgs.zsh;
+  virtualisation.docker.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -170,6 +131,8 @@
     TERMINAL = "alacritty";
     EDITOR = "vim";
   };
+
+  environment.stub-ld.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
