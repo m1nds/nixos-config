@@ -7,6 +7,7 @@
     ./modules/i3.nix
     ./modules/zsh.nix
     ./modules/neovim.nix
+    ./modules/virt-manager.nix
   ];
 
   home.username = "m1nds";
@@ -38,6 +39,8 @@
     rustup
     tree
     keepassxc
+    gcc
+    gdb
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

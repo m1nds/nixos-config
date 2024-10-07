@@ -86,12 +86,17 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   
-  programs.zsh.enable = true;
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+  virtualisation.libvirtd.enable = true;
+
+  programs = {
+    zsh.enable = true;
+    virt-manager.enable = true;
+    steam = {
+      enable = true;
+      remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+      localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+    };
   };
   users.defaultUserShell = pkgs.zsh;
   virtualisation.docker.enable = true;
@@ -131,8 +136,6 @@
     TERMINAL = "alacritty";
     EDITOR = "vim";
   };
-
-  environment.stub-ld.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
