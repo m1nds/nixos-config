@@ -79,7 +79,7 @@
   users.users.m1nds = {
     isNormalUser = true;
     description = "m1nds";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
     packages = with pkgs; [];
   };
 
