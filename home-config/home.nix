@@ -10,6 +10,11 @@
     ./modules/virt-manager.nix
   ];
 
+  nixpkgs.config = {
+    allowUnfree = true;
+    allowBroken = true;
+  };
+
   home.username = "m1nds";
   home.homeDirectory = "/home/m1nds";
 
@@ -25,6 +30,9 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
+    # Utilities
+    openssl
+    p7zip
     neofetch
     ranger
     alacritty
@@ -33,14 +41,26 @@
     firefox
     zsh
     flameshot
-    python3
-    nodejs_22
-    lua
-    rustup
     tree
     keepassxc
-    gcc
+
+    # Dev toolchain
+    man-pages
+    man-pages-posix
+    python3
+    hugo
+    rustup
     gdb
+    gcc
+    lua
+
+    # Reverse & Pwn toolchain
+    pev 
+    gdb
+    ghidra
+    pwntools
+    pwninit
+    patchelf
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

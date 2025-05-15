@@ -15,43 +15,50 @@
   ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
 
-  networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  # Allow unfree packages.
+  nixpkgs.config.allowUnfree = true;
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  # Enable networking tools (NM, WG for vpn, ...)
+  networking = {
+    hostName = "nixos";
+    networkmanager.enable = true;
+    wireguard.enable = true;
+  };
 
-  # Enable networking
-  networking.networkmanager.enable = true;
-
-  hardware.bluetooth.enable = true;
-  hardware.pulseaudio.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
+  # Configure hardware options.
+  hardware = {
+    #pulseaudio.enable = true;
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Paris";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "fr_FR.UTF-8";
-    LC_IDENTIFICATION = "fr_FR.UTF-8";
-    LC_MEASUREMENT = "fr_FR.UTF-8";
-    LC_MONETARY = "fr_FR.UTF-8";
-    LC_NAME = "fr_FR.UTF-8";
-    LC_NUMERIC = "fr_FR.UTF-8";
-    LC_PAPER = "fr_FR.UTF-8";
-    LC_TELEPHONE = "fr_FR.UTF-8";
-    LC_TIME = "fr_FR.UTF-8";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = "fr_FR.UTF-8";
+      LC_IDENTIFICATION = "fr_FR.UTF-8";
+      LC_MEASUREMENT = "fr_FR.UTF-8";
+      LC_MONETARY = "fr_FR.UTF-8";
+      LC_NAME = "fr_FR.UTF-8";
+      LC_NUMERIC = "fr_FR.UTF-8";
+      LC_PAPER = "fr_FR.UTF-8";
+      LC_TELEPHONE = "fr_FR.UTF-8";
+      LC_TIME = "fr_FR.UTF-8";
+    };
   };
 
-  security.rtkit.enable = true;
-
+  # Services configurations
   services = {
     xserver = {
       enable = true;
@@ -75,22 +82,34 @@
   # Configure console keymap
   console.keyMap = "fr";
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.m1nds = {
-    isNormalUser = true;
-    description = "m1nds";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
-    packages = with pkgs; [];
+  # Virtualisation configuration.
+  virtualisation = {
+    docker.enable = true;
+    libvirtd.enable = true;
   };
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-  
-  virtualisation.libvirtd.enable = true;
+  users = {
+    defaultUserShell = pkgs.zsh;
+    extraGroups.vboxusers.members = [ "user-with-access-to-virtualbox" ];
+    users.m1nds = {
+      isNormalUser = true;
+      description = "m1nds";
+      extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
+      packages = with pkgs; [discord];
+    };
+  };
+
+  #users.extraGroups.vboxusers.members = [ "user-with-access-to-virtualbox" ];
 
   programs = {
+    nix-ld.enable = true;
+    ssh = {
+      startAgent = true;
+    };
+
     zsh.enable = true;
     virt-manager.enable = true;
+
     steam = {
       enable = true;
       remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
@@ -98,8 +117,6 @@
       localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
     };
   };
-  users.defaultUserShell = pkgs.zsh;
-  virtualisation.docker.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -122,20 +139,27 @@
       };
     };
   };
-
+  
+  # System packages.
   environment.systemPackages = with pkgs; [
      home-manager
      vim
      wget
      git
   ];
-
+  
+  # Enable documentation.
+  documentation.dev.enable = true;
+  
+  # Environment Variables.
   environment.variables = {
     BROWSER = "firefox";
     SHELL = "zsh";
     TERMINAL = "alacritty";
     EDITOR = "vim";
   };
+  
+  security.rtkit.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -163,5 +187,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
-
 }
