@@ -33,10 +33,11 @@
     # Utilities
     openssl
     arandr
+    pavucontrol
     p7zip
     unzip
     unrar
-    neofetch
+    fastfetch
     ranger
     alacritty
     file
