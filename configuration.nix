@@ -28,6 +28,10 @@
     hostName = "nixos";
     networkmanager.enable = true;
     wireguard.enable = true;
+    firewall = {
+      enable = false;
+      extraCommands = ''iptables -A INPUT -i tun0 -j DROP'';
+    };
   };
 
   # Configure hardware options.
@@ -86,11 +90,12 @@
   virtualisation = {
     docker.enable = true;
     libvirtd.enable = true;
+    virtualbox.host.enable = true;
   };
 
   users = {
     defaultUserShell = pkgs.zsh;
-    extraGroups.vboxusers.members = [ "user-with-access-to-virtualbox" ];
+    extraGroups.vboxusers.members = [ "m1nds" ];
     users.m1nds = {
       isNormalUser = true;
       description = "m1nds";
@@ -102,7 +107,13 @@
   #users.extraGroups.vboxusers.members = [ "user-with-access-to-virtualbox" ];
 
   programs = {
-    nix-ld.enable = true;
+    nix-ld = {
+      enable = true;
+      libraries = with pkgs; [
+  	pkgsi686Linux.glibc
+      ];
+    };
+
     ssh = {
       startAgent = true;
     };

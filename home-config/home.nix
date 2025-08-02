@@ -32,7 +32,10 @@
   home.packages = with pkgs; [
     # Utilities
     openssl
+    arandr
     p7zip
+    unzip
+    unrar
     neofetch
     ranger
     alacritty
@@ -55,7 +58,7 @@
     lua
 
     # Reverse & Pwn toolchain
-    pev 
+    pev
     gdb
     ghidra
     pwntools
