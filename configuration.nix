@@ -32,6 +32,13 @@
       enable = false;
       extraCommands = ''iptables -A INPUT -i tun0 -j DROP'';
     };
+    extraHosts = 
+    ''
+    192.168.1.100 homelab.home
+    192.168.1.100 longhorn.homelab.home
+    192.168.1.100 vault.homelab.home
+    192.168.1.100 cloud.homelab.home
+    '';
   };
 
   # Configure hardware options.

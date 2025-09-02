@@ -32,6 +32,7 @@
   home.packages = with pkgs; [
     # Utilities
     openssl
+    remmina
     arandr
     pavucontrol
     p7zip
